@@ -3,8 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="style.css" rel="stylesheet" />
-	<title>MW Archive | Left Panel</title>
+	<title>MW Archive | Toggle Sidebar</title>
 	<script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
 	<style>
 		@font-face {
@@ -26,13 +25,19 @@
 			color: #333;
 		}
 
-		/* Left side panel */
+		/* Sidebar styles */
 		.sidebar {
 			width: 250px;
 			background-color: #f4f4f4;
 			border-right: 1px solid #ddd;
 			padding: 20px;
 			overflow-y: auto;
+			transition: transform 0.3s ease;
+		}
+
+		/* Hidden sidebar */
+		.sidebar.hidden {
+			transform: translateX(-100%);
 		}
 
 		.sidebar h2 {
@@ -57,7 +62,7 @@
 			color: #fff;
 		}
 
-		/* Main content area */
+		/* Content styles */
 		.content {
 			flex: 1;
 			padding: 20px;
@@ -77,20 +82,39 @@
 			background-color: #f9f9f9;
 			min-height: 200px;
 		}
+
+		/* Toggle button */
+		.toggle-btn {
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			background-color: #007BFF;
+			color: #fff;
+			border: none;
+			padding: 10px 15px;
+			cursor: pointer;
+			border-radius: 5px;
+			transition: background-color 0.3s;
+		}
+
+		.toggle-btn:hover {
+			background-color: #0056b3;
+		}
 	</style>
 </head>
 <body>
-	<!-- Left Side Panel -->
-	<div class="sidebar">
+	<!-- Sidebar -->
+	<div class="sidebar hidden" id="sidebar">
 		<h2>Files</h2>
 		<a href="#" onclick="loadMarkdown('file1.md')">File 1</a>
 		<a href="#" onclick="loadMarkdown('file2.md')">File 2</a>
 	</div>
 
-	<!-- Main Content Area -->
+	<!-- Content Area -->
 	<div class="content">
+		<button class="toggle-btn" id="toggleBtn">☰ Open Sidebar</button>
 		<h1>MW Archive</h1>
-		<div id="content">Select a file from the left panel to display its content here.</div>
+		<div id="content">Select a file from the sidebar to display its content here.</div>
 	</div>
 
 	<script>
@@ -112,6 +136,19 @@
 					document.getElementById('content').innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
 				});
 		}
+
+		// Sidebar toggle functionality
+		const sidebar = document.getElementById('sidebar');
+		const toggleBtn = document.getElementById('toggleBtn');
+
+		toggleBtn.addEventListener('click', () => {
+			sidebar.classList.toggle('hidden');
+			if (sidebar.classList.contains('hidden')) {
+				toggleBtn.textContent = '☰ Open Sidebar';
+			} else {
+				toggleBtn.textContent = '✖ Close Sidebar';
+			}
+		});
 	</script>
 </body>
 </html>
