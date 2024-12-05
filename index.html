@@ -3,19 +3,15 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>MW Archive | Toggle Sidebar</title>
+	<title>MW Archive</title>
 	<script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
 	<style>
-		@font-face {
-			font-family: jet;
-			src: url(jetbrainsmono-regular.woff2);
-		}
-
+		/* General styles */
 		* {
 			margin: 0;
 			padding: 0;
 			box-sizing: border-box;
-			font-family: jet, sans-serif;
+			font-family: Arial, sans-serif;
 		}
 
 		body {
@@ -35,7 +31,6 @@
 			transition: transform 0.3s ease;
 		}
 
-		/* Hidden sidebar */
 		.sidebar.hidden {
 			transform: translateX(-100%);
 		}
@@ -120,7 +115,7 @@
 	<script>
 		// Function to load and render markdown files
 		function loadMarkdown(file) {
-			fetch(file)
+			fetch(file) // Fetch directly from the root since files are individually uploaded
 				.then(response => {
 					if (!response.ok) {
 						throw new Error(`File not found: ${file}`);
