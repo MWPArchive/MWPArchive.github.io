@@ -1,65 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-	<link href="style.css" media="all" rel="stylesheet" type="text/css" />
-	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-	<link rel="manifest" href="site.webmanifest">
-	<meta content="MW Archive | Home" name="title" />
-	<meta content="Dynamic tools and resources archive." name="description" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="style.css" rel="stylesheet" />
+	<title>MW Archive | Left Panel</title>
+	<script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
 	<style>
 		@font-face {
 			font-family: jet;
 			src: url(jetbrainsmono-regular.woff2);
 		}
+
 		* {
-			font-family: jet;
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: jet, sans-serif;
 		}
+
 		body {
-			margin: 20px;
-			line-height: 1.6;
+			display: flex;
+			height: 100vh;
+			overflow: hidden;
 			color: #333;
 		}
-		nav {
-			margin-bottom: 20px;
+
+		/* Left side panel */
+		.sidebar {
+			width: 250px;
+			background-color: #f4f4f4;
+			border-right: 1px solid #ddd;
+			padding: 20px;
+			overflow-y: auto;
 		}
-		nav a {
-			margin-right: 10px;
-			text-decoration: none;
+
+		.sidebar h2 {
+			font-size: 20px;
+			margin-bottom: 20px;
+			text-align: center;
 			color: #007BFF;
 		}
-		nav a:hover {
-			text-decoration: underline;
+
+		.sidebar a {
+			display: block;
+			color: #333;
+			text-decoration: none;
+			margin: 10px 0;
+			padding: 10px;
+			border-radius: 5px;
+			transition: background-color 0.3s;
 		}
-		#content {
+
+		.sidebar a:hover {
+			background-color: #007BFF;
+			color: #fff;
+		}
+
+		/* Main content area */
+		.content {
+			flex: 1;
+			padding: 20px;
+			overflow-y: auto;
+		}
+
+		.content h1 {
+			margin-bottom: 20px;
+			font-size: 24px;
+			color: #007BFF;
+		}
+
+		.content #content {
 			border: 1px solid #ddd;
-			padding: 15px;
+			padding: 20px;
 			border-radius: 5px;
 			background-color: #f9f9f9;
-		}
-		.up_btn {
-			width: 50px;
-			height: 50px;
+			min-height: 200px;
 		}
 	</style>
-	<title>MW Archive | Home</title>
-	<script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
 </head>
 <body>
-	<div class="top-margin-container">
-		<h1>MW Archive</h1>
-		<nav>
-			<a href="#" onclick="loadMarkdown('file1.md')">File 1</a>
-			<a href="#" onclick="loadMarkdown('file2.md')">File 2</a>
-		</nav>
-		<div id="content">Select a file to display its content here.</div>
+	<!-- Left Side Panel -->
+	<div class="sidebar">
+		<h2>Files</h2>
+		<a href="#" onclick="loadMarkdown('file1.md')">File 1</a>
+		<a href="#" onclick="loadMarkdown('file2.md')">File 2</a>
+	</div>
 
-		<button class="myBtn2" id="scrollBackButton" onclick="topFunction()">
-			<img src="up2.png" alt="Scroll to top" class="up_btn">
-		</button>
+	<!-- Main Content Area -->
+	<div class="content">
+		<h1>MW Archive</h1>
+		<div id="content">Select a file from the left panel to display its content here.</div>
 	</div>
 
 	<script>
@@ -81,88 +112,6 @@
 					document.getElementById('content').innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
 				});
 		}
-
-		// Scroll to top function
-		function topFunction() {
-			document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-			document.body.scrollTop = 0; // For Safari
-		}
 	</script>
 </body>
 </html>
-
-   <a href="https://envs.sh/3ek.jpg">
-    <img src="https://envs.sh/3ek.jpg" style="width:400px; height:200px;">
-</a>
-		<div class="center_text full_w">
-			<marquee class="wip_title">🚧 WIP</marquee>
-			<!-- <span class="wip_title"><b>🚧 WIP</b></span> -->
-		</div>
-		<div class="center_text">
-			<i>
-				This page is a WIP (work in progress) and is a bit disorganized and all over the place.
-				Bear
-				with me, I am
-				working on
-				this.
-			</i>
-		</div>
-		<br />
-		<div class="center_text welcome_paragraph">
-			<div class="welcome_paragraph_inner">Welcome to <div class="animate-charcter small_title">
-					"MW
-					Archive"!
-				</div> The go-to place for internet stuff.
-     <br />
-     <hr /> 
-			  I
-				like to explore different things around this internet. Sometimes those things got deleted for many reason. So ya I am trying to collect and organize those things here.
-
-    </div>
-
-	</div>
-     <br />
-Created By <a href="https://github.com/MoonWalker440" target="_blank">MoonWalker440</a> 
-     <br />
-     <br />
-<b>Credits</b> 💝 <br>
-     <br />
-This website design is based on the work of <a href="https://github.com/Courage-1984/pixelated-pathways" target="_blank">Courage-1984's Pixelated Pathways Repo</a>
-     <br />
-     <br />
-I adapted his code and design to create this project.
-While the original project served as inspiration, I have made modifications to fit my specific needs.
-All credit for the original design and concept goes to the creator.
-
-			</div>
-
-	</div>
-
-	<hr />
-	<h1 class="margin_left" id="Purpose" style="max-width: 200px;">💯 Purpose</h1>
-	<br />
-	<p class="margin_left" style="max-width: 1000px;">I would say that for me, the purpose of this page is to share
-		information and links and to also act as a point of
-		quick
-		reference if you need something. Everything (well most) of what is included on this page I have used and
-		or are
-		using,
-		so I would say that it is somewhat curated by experience.
-	<br />
-	
-	<ul id="tool-list"></ul>
-<script>
-  const folder = './md-files/'; // Path to your folder
-  fetch(folder)
-    .then(response => response.text())
-    .then(files => {
-      const list = document.getElementById('tool-list');
-      files.split('\n').forEach(file => {
-        if (file.endsWith('.md')) {
-          const listItem = document.createElement('li');
-          listItem.innerHTML = `<a href="${folder + file}">${file.replace('.md', '')}</a>`;
-          list.appendChild(listItem);
-        }
-      });
-    });
-</script>
