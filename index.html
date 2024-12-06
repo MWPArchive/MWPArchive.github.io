@@ -7,136 +7,68 @@
 	<script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
 	<style>
 		/* General styles */
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-			font-family: Arial, sans-serif;
-		}
-
 		body {
-			display: flex;
-			height: 100vh;
-			overflow: hidden;
+			font-family: Arial, sans-serif;
+			line-height: 1.6;
+			margin: 20px;
 			color: #333;
 		}
 
-		/* Sidebar styles */
-		.sidebar {
-			width: 250px;
-			background-color: #f4f4f4;
-			border-right: 1px solid #ddd;
-			padding: 20px;
-			overflow-y: auto;
-			transition: transform 0.3s ease;
-		}
-
-		.sidebar.hidden {
-			transform: translateX(-100%);
-		}
-
-		.sidebar h2 {
-			font-size: 20px;
-			margin-bottom: 20px;
+		h1 {
 			text-align: center;
 			color: #007BFF;
 		}
 
-		.sidebar a {
-			display: block;
-			color: #333;
-			text-decoration: none;
-			margin: 10px 0;
-			padding: 10px;
-			border-radius: 5px;
-			transition: background-color 0.3s;
-		}
-
-		.sidebar a:hover {
-			background-color: #007BFF;
-			color: #fff;
-		}
-
-		/* Content styles */
-		.content {
-			flex: 1;
+		#front-page-content {
 			padding: 20px;
-			overflow-y: auto;
-		}
-
-		.content h1 {
-			margin-bottom: 20px;
-			font-size: 24px;
-			color: #007BFF;
-		}
-
-		.content #content {
 			border: 1px solid #ddd;
-			padding: 20px;
 			border-radius: 5px;
 			background-color: #f9f9f9;
-			min-height: 200px;
-		}
-
-		/* Toggle button */
-		.toggle-btn {
-			position: absolute;
-			top: 20px;
-			left: 20px;
-			background-color: #007BFF;
-			color: #fff;
-			border: none;
-			padding: 10px 15px;
-			cursor: pointer;
-			border-radius: 5px;
-			transition: background-color 0.3s;
-		}
-
-		.toggle-btn:hover {
-			background-color: #0056b3;
 		}
 	</style>
 </head>
 <body>
-	<!-- Sidebar -->
-	<div class="sidebar hidden" id="sidebar">
-	<h2>Files</h2>
-	<a href="https://github.com/MWPArchive/MWPArchive.github.io/blob/main/Name.md" target="_blank">Name</a>
-	<a href="https://github.com/MWPArchive/MWPArchive.github.io/blob/main/Desc.md" target="_blank">Description</a>
-</div>
+	<h1>Welcome to MW Archive</h1>
+	<div id="front-page-content">
+		<!-- Markdown content will render here -->
+		<p>Loading content...</p>
+	</div>
 
 	<script>
-		// Function to load and render markdown files
-		function loadMarkdown(file) {
-			fetch(file) // Fetch directly from the root since files are individually uploaded
-				.then(response => {
-					if (!response.ok) {
-						throw new Error(`File not found: ${file}`);
-					}
-					return response.text();
-				})
-				.then(text => {
-					const converter = new showdown.Converter();
-					const html = converter.makeHtml(text);
-					document.getElementById('content').innerHTML = html;
-				})
-				.catch(err => {
-					document.getElementById('content').innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
-				});
+		// List of Markdown files to render on the front page
+		const markdownFiles = ['https://github.com/MWPArchive/MWPArchive.github.io/blob/main/Desc.md', 'https://github.com/MWPArchive/MWPArchive.github.io/blob/main/Name.md']; // Add the files you want here
+
+		// Function to fetch and render markdown content
+		function renderMarkdown(files) {
+			const converter = new showdown.Converter();
+			const container = document.getElementById('front-page-content');
+			container.innerHTML = ''; // Clear loading text
+
+			files.forEach(file => {
+				fetch(file)
+					.then(response => {
+						if (!response.ok) {
+							throw new Error(`Error fetching ${file}`);
+						}
+						return response.text();
+					})
+					.then(text => {
+						const html = converter.makeHtml(text); // Convert Markdown to HTML
+						const section = document.createElement('section');
+						section.innerHTML = html;
+						container.appendChild(section);
+					})
+					.catch(err => {
+						const errorSection = document.createElement('p');
+						errorSection.style.color = 'red';
+						errorSection.textContent = `Error loading ${file}: ${err.message}`;
+						container.appendChild(errorSection);
+					});
+			});
 		}
 
-		// Sidebar toggle functionality
-		const sidebar = document.getElementById('sidebar');
-		const toggleBtn = document.getElementById('toggleBtn');
-
-		toggleBtn.addEventListener('click', () => {
-			sidebar.classList.toggle('hidden');
-			if (sidebar.classList.contains('hidden')) {
-				toggleBtn.textContent = '☰ Open Sidebar';
-			} else {
-				toggleBtn.textContent = '✖ Close Sidebar';
-			}
-		});
+		// Render the specified markdown files
+		renderMarkdown(markdownFiles);
 	</script>
 </body>
 </html>
